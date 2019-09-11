@@ -21,18 +21,6 @@ def random_img(output, width, height):
   plt.imshow(img)
   plt.show()
 
-random_img('random.png', 100, 50)
+random_img('random.png', 2, 2)
 
-# Create a TensorFlow Variable
-# x = tf.Variable(image, name='x')
-
-# model = tf.global_variables_initializer()
-
-# with tf.Session() as session:
-#     x = tf.transpose(x, perm=[1, 0, 2])
-#     session.run(model)
-#     result = session.run(x)
-
-
-# plt.imshow(result)
-# plt.show()
+# сначала нужно сделать разбиение картинки на маленькие прямоугольники
