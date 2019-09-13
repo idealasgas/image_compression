@@ -24,7 +24,6 @@ M = 2
 N = 2
 
 tiles = [image_array[x:x+M,y:y+N] for x in range(0,image_array.shape[0],M) for y in range(0,image_array.shape[1],N)]
-# import code; code.interact(local=dict(globals(), **locals()))
 # print(tiles)
 
 # i=0
@@ -46,6 +45,13 @@ for i, tile in enumerate(tiles):
         array_of_x[i].append(((2 * color) / 255) - 1)
 
 print(array_of_x)
+# import code; code.interact(local=dict(globals(), **locals()))
+# for x in array_of_x:
+
 
 # сначала нужно сделать разбиение картинки на маленькие прямоугольники
 # делим на 256 квадратов 16x16 для этого нужно
+
+# теперь нужно использовать матрицу весов W для первого слоя
+# количество нейронов второго слоя - p <= N*2
+# N - кол-во элементов в X (12)
