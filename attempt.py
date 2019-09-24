@@ -10,7 +10,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 filename = dir_path + "/original.jpg"
 image = Image.open(filename)
 image_array = np.asarray(image)
-print(image_array)
+# print(image_array)
 
 def random_img(output, width, height):
   array = np.random.random_integers(0,255, (height,width,3))
@@ -44,7 +44,7 @@ for i, tile in enumerate(tiles):
       for p, color in enumerate(pixel):
         array_of_x[i].append(((2 * color) / 255) - 1)
 
-print(array_of_x)
+# print(array_of_x)
 
 # N = array_of_x[0].size
 N = 12
@@ -53,14 +53,61 @@ p = 5 # вводимое пользователем число нейронов 
 
 matrix_of_weighs = np.random.rand(N, p)
 
-print(matrix_of_weighs)
+# print(matrix_of_weighs)
 
 array_of_y = []
 
 for x in array_of_x:
   array_of_y.append(np.dot(x, matrix_of_weighs))
 
-print(array_of_y)
+# print(array_of_y)
+
+# import code; code.interact(local=dict(globals(), **locals()))
+
+transposed_matrix_of_W = matrix_of_weighs.transpose()
+
+# print(transposed_matrix_of_W)
+
+array_of_x_second = []
+
+for y in array_of_y:
+  array_of_x_second.append(np.dot(y, transposed_matrix_of_W))
+
+
+# print(array_of_x_second)
+
+delta_from_x = []
+
+# import code; code.interact(local=dict(globals(), **locals()))
+
+for i in range(len(array_of_x_second)):
+  delta_from_x.append(array_of_x_second[i] - array_of_x[i])
+
+print(delta_from_x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
