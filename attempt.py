@@ -45,6 +45,18 @@ for i, tile in enumerate(tiles):
         array_of_x[i].append(((2 * color) / 255) - 1)
 
 print(array_of_x)
+
+# N = array_of_x[0].size
+N = 12
+
+p = 5 # вводимое пользователем число нейронов второго слоя (p <= 2*N)
+
+matrix_of_weighs = np.random.rand(N, p)
+
+print(matrix_of_weighs)
+
+
+
 # import code; code.interact(local=dict(globals(), **locals()))
 # for x in array_of_x:
 
