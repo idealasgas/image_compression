@@ -55,6 +55,13 @@ matrix_of_weighs = np.random.rand(N, p)
 
 print(matrix_of_weighs)
 
+array_of_y = []
+
+for x in array_of_x:
+  array_of_y.append(np.dot(x, matrix_of_weighs))
+
+print(array_of_y)
+
 
 
 # import code; code.interact(local=dict(globals(), **locals()))
