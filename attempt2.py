@@ -69,7 +69,7 @@ learning_ratio = 1 / (np.dot(array_of_x[0], np.asarray(array_of_x[0]).transpose(
 print(learning_ratio)
 
 
-error_max = 3.123
+error_max = 5.943
 error_current = error_max + 1
 alpha = 0.0007
 epoch = 0
@@ -116,14 +116,42 @@ for i, x in enumerate(new_x):
 
 # это можно написать в одном цикле
 
-print("то что получилося")
-print(new_pixels)
 print("картинка оригинал")
 print(image_array)
 
+height = len(image_array)
+
 new_image_array = []
+for i in range(height):
+  new_image_array.append([])
 
-# for pile in new_pixels:
+print(new_image_array)
+
+print("то что получилося")
+
+upper_side = 0
+lower_side = 1
+counter = 1
+
+for three_px in np.asarray(new_pixels).reshape(-1, 3):
+  if counter == 1 or counter == 2 or counter == 5 or counter == 6 or counter == 9 or counter == 10 or counter == 13 or counter == 14 or counter == 17 or counter == 18:
+    new_image_array[upper_side].append(np.rint(three_px))
+  else:
+    new_image_array[lower_side].append(np.rint(three_px))
+  if counter == 20:
+    counter = 1
+    upper_side += 2
+    lower_side += 2
+  else:
+    counter += 1
+
+
+# img = Image.fromarray(np.array(new_image_array).astype('uint8'))
+img = Image.fromarray(image_array)
+plt.imshow(img)
+plt.show()
+
+  # import code; code.interact(local=dict(globals(), **locals()))
 
 
 
@@ -135,7 +163,8 @@ new_image_array = []
 
 
 
-import code; code.interact(local=dict(globals(), **locals()))
+
+# import code; code.interact(local=dict(globals(), **locals()))
 
 
 
