@@ -7,7 +7,7 @@ import numpy as np
 
 # загружаю картинку
 dir_path = os.path.dirname(os.path.realpath(__file__))
-filename = dir_path + "/original.jpg"
+filename = dir_path + "/jesus.jpg"
 image = Image.open(filename)
 image_array = np.asarray(image)
 # print(image_array)
@@ -69,7 +69,7 @@ learning_ratio = 1 / (np.dot(array_of_x[0], np.asarray(array_of_x[0]).transpose(
 print(learning_ratio)
 
 
-error_max = 5.943
+error_max = 539.15
 error_current = error_max + 1
 alpha = 0.0007
 epoch = 0
@@ -129,16 +129,28 @@ print(new_image_array)
 
 print("то что получилося")
 
+def check_counter(counter):
+  if counter % 2 == 0:
+    if (counter / 2) % 2 != 0:
+      return True
+    else:
+      return False
+  else:
+    if ((counter + 1) / 2) % 2 != 0:
+      return True
+    else:
+      return False
+
 upper_side = 0
 lower_side = 1
 counter = 1
 
 for three_px in np.asarray(new_pixels).reshape(-1, 3):
-  if counter == 1 or counter == 2 or counter == 5 or counter == 6 or counter == 9 or counter == 10 or counter == 13 or counter == 14 or counter == 17 or counter == 18:
+  if check_counter(counter):
     new_image_array[upper_side].append(np.rint(three_px))
   else:
     new_image_array[lower_side].append(np.rint(three_px))
-  if counter == 20:
+  if counter == height * 2:
     counter = 1
     upper_side += 2
     lower_side += 2
@@ -146,8 +158,8 @@ for three_px in np.asarray(new_pixels).reshape(-1, 3):
     counter += 1
 
 
-# img = Image.fromarray(np.array(new_image_array).astype('uint8'))
-img = Image.fromarray(image_array)
+img = Image.fromarray(np.array(new_image_array).astype('uint8'))
+# img = Image.fromarray(image_array)
 plt.imshow(img)
 plt.show()
 
