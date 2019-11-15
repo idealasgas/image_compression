@@ -19,8 +19,8 @@ def random_img(output, width, height):
   plt.show()
 
 # размер кусочков
-m = 2
-n = 2
+m = 4
+n = 4
 
 # делю на маленькие штуки
 tiles = [image_array[x:x+m,y:y+n] for x in range(0,image_array.shape[0],m) for y in range(0,image_array.shape[1],n)]
@@ -39,9 +39,9 @@ for i, tile in enumerate(tiles):
 N = m * n * 3 # 4 клеточки по три цвета
 L = len(tiles)
 
-p = 5 # вводимое пользователем число нейронов второго слоя (p <= 2*N)
+p = int(input("Количество нейронов второго слоя: ")) # вводимое пользователем число нейронов второго слоя (p <= 2*N)
 
-error_max = 539.15
+error_max = int(input("Максимальная ошибка: "))
 error_current = error_max + 1
 iteration = 0
 
@@ -66,15 +66,11 @@ while error_current > error_max:
     error_current += error
   print('итерация ', iteration, '    ', 'ошибка: ', error_current)
 
-
-# ===================================ВОССТАНОВЛЕНИЕ
-
 new_x = []
 for i in array_of_x:
   y = i @ w1
   x1 = y @ w2
   new_x.append(x1)
-
 
 new_pixels = []
 for i in new_x:
@@ -85,41 +81,32 @@ for i, x in enumerate(new_x):
     color = 255 * (px + 1) / 2
     new_pixels[i].append(color)
 
-# это можно написать в одном цикле
-
 height = len(image_array)
-
 new_image_array = []
 for i in range(height):
   new_image_array.append([])
 
-def check_counter(counter):
-  if counter % 2 == 0:
-    if (counter / 2) % 2 != 0:
-      return True
-    else:
-      return False
-  else:
-    if ((counter + 1) / 2) % 2 != 0:
-      return True
-    else:
-      return False
-
-upper_side = 0
-lower_side = 1
+side = 0
+counter_sides = 0
 counter = 1
 
 for three_px in np.asarray(new_pixels).reshape(-1, 3):
-  if check_counter(counter):
-    new_image_array[upper_side].append(np.rint(three_px))
-  else:
-    new_image_array[lower_side].append(np.rint(three_px))
-  if counter == height * 2:
+  new_image_array[side].append(np.rint(three_px))
+  if counter_sides == m - 1 and (side + 1) % m == 0 and counter != height * m:
+    side -= m - 1
+    counter_sides = 0
+    counter += 1
+  elif counter_sides == m - 1 and counter == height * m and (side + 1) % m == 0:
+    side += 1
+    counter_sides = 0
     counter = 1
-    upper_side += 2
-    lower_side += 2
+  elif side != m - 1 and counter_sides == m - 1:
+    side += 1
+    counter_sides = 0
+    counter += 1
   else:
     counter += 1
+    counter_sides += 1
 
 
 img = Image.fromarray(np.array(new_image_array).astype('uint8'))
